@@ -6,7 +6,7 @@ interface State {
     value: string
 }
 
-export default class searchForm extends Component<Props, State> {
+export default class SearchForm extends Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = { value: '' };
@@ -15,11 +15,11 @@ export default class searchForm extends Component<Props, State> {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
+    handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
         this.setState({ value: event.target.value });
     }
 
-    handleSubmit(event) {
+    handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         alert('A name was submitted: ' + this.state.value);
         event.preventDefault();
     }
@@ -28,11 +28,17 @@ export default class searchForm extends Component<Props, State> {
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Essay:
-          <textarea value={this.state.value} onChange={this.handleChange} />
+          <textarea style={button} value={this.state.value} onChange={this.handleChange} />
                 </label>
-                <input type="submit" value="Submit" />
+                <input style={input}
+                 type="submit" value="Search" />
             </form>
         );
     }
 }
-                      
+const input: CSSProperties = {
+    width: '100%',
+}              
+const button: CSSProperties = {
+    width: '100%',
+}              

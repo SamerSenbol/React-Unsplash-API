@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import ViewSection from './viewSection';
 import ImageLink from './imageLink';
-import searchForm from './searchForm';
+import SearchForm from './searchForm';
 
 interface Props {
     detailViews: string[]
@@ -12,7 +12,7 @@ export default function MasterView(props: Props) {
 
     return (
         <div style={container}>{
-            <searchForm/>
+            <SearchForm/>
         }
          
         </div>

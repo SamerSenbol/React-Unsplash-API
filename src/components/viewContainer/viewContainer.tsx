@@ -1,7 +1,7 @@
 import React, { Suspense, CSSProperties } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Spinner from '../spinner';
-import searchForm from './searchForm';
+import SearchForm from './searchForm';
 
 const MasterView = React.lazy(() => import(/* webpackChunkName: "masterView" */ './masterView'));
 const DetailView = React.lazy(() => import(/* webpackChunkName: "detailView" */ './detailView/detailView'));
@@ -13,10 +13,8 @@ export default function ViewContainer() {
         <Suspense fallback={<Spinner/>}>
             <Switch>
                 
-                <Route exact path="/" component={DetailView}/>
-                <div style={centeredForm}>
-                    <searchForm />
-                </div>
+                <Route exact path="/" component={MasterView}/>
+
                 <Route path="/**" component={DetailView}/>
             </Switch>
         </Suspense>
