@@ -9,8 +9,8 @@ interface Props {
 /** React function component */
 export default function ImageLink(props: Props) {
     
-    //const url = `${props.view}`;
-    //const imageSrc = `../assets/${props.view}.jpg`;
+    const url = `${props.view}`;
+    const imageSrc = `../assets/${props.view}.jpg`;
 
     return (
         <Link to={url} style={{ ...linkAppearance, ...centeredContent }}>
