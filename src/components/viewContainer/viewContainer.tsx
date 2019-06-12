@@ -14,7 +14,6 @@ export default function ViewContainer() {
     return (
         <Suspense fallback={<Spinner/>}>
             <Switch>
-                
                 <Route exact path="/" component={MasterView}/>
                 <div>
                     <SearchForm />

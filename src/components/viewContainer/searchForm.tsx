@@ -1,44 +1,72 @@
 import React, { Component, CSSProperties } from 'react';
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import { ThemedCSSProperties, ThemeContext } from "../../contexts/themeContext"
+
+
+
 
 interface Props {
 }
+
 interface State {
-    value: string
+    inputValue: string
 }
 
 export default class SearchForm extends Component<Props, State> {
     constructor(props: Props) {
         super(props)
-        this.state = { value: '' };
+        this.state = { 
+            inputValue: localStorage.getItem("searchValue") || ""};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-        this.setState({ value: event.target.value });
+    handleChange(event: any) {
+        this.setState({ inputValue: event.target.value });
     }
 
-    handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        alert('A name was submitted: ' + this.state.value);
-        event.preventDefault();
+    handleSubmit(event: any) {
+       /*  alert('A name was submitted: ' + this.state.value); */
+        localStorage.setItem("searchValue", this.state.inputValue)
+        this.setState({
+        inputValue: localStorage.getItem("searchValue") || '' 
+        
+    })
+    if (event.which === 13) {
+        this.context.router.history.push(this.state.inputValue)
     }
+
+    event.stopPropagation();
+    }
+    static contextTypes = {
+        router: PropTypes.object
+    }
+
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Essay:
-          <textarea style={button} value={this.state.value} onChange={this.handleChange} />
-                </label>
-                <input style={input}
-                 type="submit" value="Search" />
+            <ThemeContext.Consumer>
+                {({ theme }) => (
+            <form>
+                    <input 
+                        onChange={this.handleChange}
+                        type="text" 
+                        onKeyPress={this.handleSubmit}
+                        value={this.state.inputValue}
+                        />
+
+                    <button 
+                        type="submit" 
+                        onClick={this.handleSubmit}
+                        >
+                        <Link to={this.state.inputValue}>Search</Link>
+                        </button>
             </form>
-        );
+        )}
+        </ThemeContext.Consumer>
+        )
     }
+    
 }
-const input: CSSProperties = {
-    width: '100%',
-}              
-const button: CSSProperties = {
-    width: '100%',
-}              
+
