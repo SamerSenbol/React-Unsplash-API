@@ -5,7 +5,7 @@ import ImageLink from './imageLink';
 
 
 interface Props {
-    detailViews: string[]
+    detailViews: []
 }
 
 /** React function component */

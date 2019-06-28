@@ -18,7 +18,7 @@ export default class ImageSection extends Component<Props, State> {
     readonly imageDatabaseApiUrl = "https://api.unsplash.com/search/photos/"
 
     state: State = {
-        imagesUrls: new Array(24).fill({}),
+        imagesUrls: new Array().fill({}),
         isLoading: true
     }
 

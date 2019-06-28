@@ -1,7 +1,7 @@
 import React, { Component, CSSProperties } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ThemedCSSProperties, ThemeContext } from "../../contexts/themeContext"
+import { ThemedCSSProperties, ThemeContext } from "../../contexts/themeContext";
 
 
 
@@ -29,11 +29,9 @@ export default class SearchForm extends Component<Props, State> {
 
     handleSubmit(event: any) {
        /*  alert('A name was submitted: ' + this.state.value); */
-        localStorage.setItem("searchValue", this.state.inputValue)
-        this.setState({
-        inputValue: localStorage.getItem("searchValue") || '' 
-        
-    })
+
+
+    
     if (event.which === 13) {
         this.context.router.history.push(this.state.inputValue)
     }
