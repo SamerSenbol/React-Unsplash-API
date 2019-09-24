@@ -1,3 +1,4 @@
+
 import React, { CSSProperties } from 'react';
 import { centeredContent, fullscreenAbsolute } from '../../css';
 import { Link } from 'react-router-dom';
@@ -6,15 +7,16 @@ interface Props {
     view: string
 }
 
-/** React function component */
+// React function component
 export default function ImageLink(props: Props) {
     
     const url = `${props.view}`;
     const imageSrc = `../assets/${props.view}.jpg`;
-
+    console.log('render image link');
     return (
         <Link to={url} style={{ ...linkAppearance, ...centeredContent }}>
-            <img src={imageSrc} style={fullscreenAbsolute} />
+            <img src={imageSrc} style={fullscreenAbsolute} onClick={() => {console.warn('liked image')}}/>
+            <h1>hello!</h1>
             <h1 style={{ ...centeredAbsolute, ...appearance}}>{props.view}</h1>
         </Link>
     );

@@ -13,17 +13,24 @@ export interface ImageUrls {
 
 interface Props {
     urls: ImageUrls
+    view: string
+    isLiked: boolean
+    likedClick: (urls: ImageUrls, index: number) => void
+    index: number
 }
 interface State {
     isHover: boolean
     isModalOpen: boolean
 }
 
-export default class ImageCard extends Component<Props> {
-
-    state: State = {
-        isHover: false,
-        isModalOpen: false
+export default class ImageCard extends Component<Props, State> {
+    constructor(props:Props){
+        super(props)
+        this.state = {
+            isHover: false,
+            isModalOpen: false
+        }
+        this.handleClick = this.handleClick.bind(this);
     }
 
     style(theme: ThemeState): CSSProperties {
@@ -39,29 +46,54 @@ export default class ImageCard extends Component<Props> {
 
     onMouseEnter = () => this.setState({ isHover: true })
     onMouseLeave = () => this.setState({ isHover: false })
-    openModal = () => this.setState({ isModalOpen: true });
+    openModal = () => this.setState({ isModalOpen: true }); 
     closeModal = () => this.setState({ isModalOpen: false });
 
+    open = () => { console.log('image liked')}
+    handleClick(event:React.MouseEvent<HTMLElement, MouseEvent>) {
+        this.props.likedClick(this.props.urls, this.props.index)
+        event.stopPropagation();
+    }
+
+    iconStyle() {
+        if(this.props.isLiked){
+            return "large heart icon"
+        }
+        return "large outline heart icon"
+    }
+
     render() {
-        const { urls } = this.props
         return (
-            <Fragment>
+            <Fragment >
                 <ThemeContext.Consumer>
                     {({ theme }) => (
                         <div
                             style={this.style(theme)}
                             onMouseEnter={this.onMouseEnter}
                             onMouseLeave={this.onMouseLeave}
-                            onClick={this.openModal}
+                            onClick={this.open}
                         >
-                            {urls.small ? <img src={urls.small} style={card}/> : <Spinner/>}
+                                  {this.props.urls.small ? 
+                            <div style={cardContainer}> 
+                                <i 
+                                    onClick={this.handleClick} 
+                                    style={likeIcon} 
+                                    className={this.iconStyle()} 
+                                    >
+                                </i>
+                                <img 
+                                    src={this.props.urls.small} 
+                                    style={card}
+                                /> 
+                            </div> 
+                            : <Spinner/> }
                         </div>
                     )}
                 </ThemeContext.Consumer>
                 {
                     this.state.isModalOpen ? (
                         <Modal shouldClose={this.closeModal}>
-                            <img src={urls.regular} style={preview}/>
+                             <img src={this.props.urls.regular} style={preview}/>
                         </Modal>
                     ) : null
                 }
@@ -88,4 +120,16 @@ const preview: CSSProperties = {
     width: '100%',
     height: '100%',
     objectFit: 'contain'
+}
+const likeIcon: CSSProperties = {
+    color: 'blue',
+    position: 'absolute',
+    top: '8px',
+    right: '16px',
+    zIndex: 100
+}
+
+const cardContainer: CSSProperties = {
+    height: '100%',
+    position: 'relative'
 }

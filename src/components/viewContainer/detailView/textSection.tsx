@@ -36,7 +36,6 @@ export default class TextSection extends Component<Props, State> {
     }
 
     handleResponse(response: AxiosResponse) {
-        console.log(response)
         const htmlPageText: string = response.data.parse.text['*']
         const paragraphs = this.extractBeginningOfText(htmlPageText)
         this.setState({ paragraphs, isLoading: false })

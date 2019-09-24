@@ -14,7 +14,7 @@ export default function ViewContainer() {
         
             <Switch>
                 <Route path="/:id" component={DetailView}></Route>
-                <SearchForm/>
+                <SearchForm />
             </Switch>
         
     );

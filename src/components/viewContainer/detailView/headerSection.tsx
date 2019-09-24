@@ -2,8 +2,6 @@ import React, { CSSProperties } from 'react';
 import { ThemedCSSProperties, ThemeContext } from '../../../contexts/themeContext';
 import Button from '../../button';
 
-
-
 interface Props {
     view: string
     openModal: () => void;
