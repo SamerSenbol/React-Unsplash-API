@@ -25,31 +25,30 @@ export default class ImageSection extends Component<Props, State> {
         likedImages: [],
         isLiked: true 
     }
-
+    //Getting data from the localStorage.
     handleLikedImage() {
-        const imageData: ImageUrls[] = JSON.parse(localStorage.getItem(this.props.view) || "{}")
+        const data: ImageUrls[] = JSON.parse(localStorage.getItem(this.props.view) || "{}")
 
-        if(imageData.length > 0) {
+        if(data.length > 0) {
             this.setState ({
-                likedImages: this.state.likedImages = [...imageData]
+                likedImages: this.state.likedImages = [...data]
             });
         }
     }
-
-    LocalStorage() {
+    //Converting JavaScript values to JSON file.
+    localStorage() {
         localStorage.setItem(this.props.view, JSON.stringify(this.state.likedImages))
     }
-
+    //Locking for the new events.
     componentDidUpdate() {
         if(this.props.view in localStorage && this.state.likedImages.length === 0) {
             this.handleLikedImage();
 
         } else {
-            this.LocalStorage(); 
+            this.localStorage(); 
         }
     }
-
-
+    //Saving the liked images.
     likedImages = (url: ImageUrls, index: number) => {
         this.setState({
             likedImages: [...this.state.likedImages, url]
