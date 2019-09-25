@@ -41,7 +41,6 @@ const headerSegment: CSSProperties = {
     alignItems: 'center'
 }
 
-
 const header: ThemedCSSProperties = (theme) => ({
     textShadow: `0px 0px 2px ${theme.background.primary}`
 })

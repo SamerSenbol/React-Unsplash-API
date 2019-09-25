@@ -7,12 +7,14 @@ import { ThemedCSSProperties, ThemeContext } from '../../../contexts/themeContex
 interface Props {
     view: string
 }
+
 interface State {
     imagesUrls: ImageUrls[]
     isLoading: boolean
     likedImages: ImageUrls[]
     isLiked: boolean
 }
+
 export default class ImageSection extends Component<Props, State> {
     /** Not a good place for the key.. well.. what the heck.. - GET YOUR OWN! */
     readonly accessKey = "635745df97a8ae28d16ce955899eefc2ddc69fbaa7348f4b909f47a414d4e8c1"
@@ -31,28 +33,6 @@ export default class ImageSection extends Component<Props, State> {
             this.setState({ imagesUrls: images, isLoading: false })
         }
     }
-    componentDidUpdate(){
-        if(this.props.view in localStorage && this.state.likedImages.length === 0){
-            const storage: ImageUrls[] = ls.get(this.props.view);
-            if(storage.length > 0) {
-                this.setState({
-                    likedImages: this.state.likedImages = [...storage]
-                })
-            }
-        }else {
-            ls.set(this.props.view, this.state.likedImages);
-        }
-    }
-    handleLikedImage = (urls: ImageUrls, index: number) => {
-        
-        this.setState({
-            likedImages: [...this.state.likedImages, urls]
-        });
-        
-        this.setState({
-            imagesUrls: this.state.imagesUrls.filter((_, i) => i !== index)
-        });
-    }
 
     async componentDidMount() {
         try {
@@ -68,6 +48,30 @@ export default class ImageSection extends Component<Props, State> {
         } catch(error) {
             console.error(error)
         }
+    }
+    
+    componentDidUpdate(){
+        if(this.props.view in localStorage && this.state.likedImages.length === 0){
+            const storage: ImageUrls[] = ls.get(this.props.view);
+            if(storage.length > 0) {
+                this.setState({
+                    likedImages: this.state.likedImages = [...storage]
+                })
+            }
+        }else {
+            ls.set(this.props.view, this.state.likedImages);
+        }
+    }
+    
+    handleLikedImage = (urls: ImageUrls, index: number) => {
+        
+        this.setState({
+            likedImages: [...this.state.likedImages, urls]
+        });
+        
+        this.setState({
+            imagesUrls: this.state.imagesUrls.filter((_, i) => i !== index)
+        });
     }
 
    render() {
