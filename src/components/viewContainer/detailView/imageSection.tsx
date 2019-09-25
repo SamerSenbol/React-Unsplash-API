@@ -39,7 +39,7 @@ export default class ImageSection extends Component<Props, State> {
     localStorage() {
         localStorage.setItem(this.props.view, JSON.stringify(this.state.likedImages))
     }
-    //Locking for the new events.
+    //It will run whenever this.setState() is called.
     componentDidUpdate() {
         if(this.props.view in localStorage && this.state.likedImages.length === 0) {
             this.handleLikedImage();

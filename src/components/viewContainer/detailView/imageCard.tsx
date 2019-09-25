@@ -48,8 +48,7 @@ export default class ImageCard extends Component<Props, State> {
     onMouseLeave = () => this.setState({ isHover: false })
     openModal = () => this.setState({ isModalOpen: true }); 
     closeModal = () => this.setState({ isModalOpen: false });
-
-    open = () => { console.log('image liked')}
+    /* open = () => { console.log('image liked')} */
     handleClick(event:React.MouseEvent<HTMLElement, MouseEvent>) {
         this.props.likedClick(this.props.urls, this.props.index)
         event.stopPropagation();
@@ -71,7 +70,7 @@ export default class ImageCard extends Component<Props, State> {
                             style={this.style(theme)}
                             onMouseEnter={this.onMouseEnter}
                             onMouseLeave={this.onMouseLeave}
-                            onClick={this.open}
+                            /* onClick={this.open} */
                         >
                                   {this.props.urls.small ? 
                             <div style={cardContainer}> 
